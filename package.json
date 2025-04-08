@@ -1,0 +1,40 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc jasmine"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "basic-auth": "^2.0.1",
+    "body-parser": "^1.20.2",
+    "cloudinary": "^1.41.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "es6-promise": "^4.2.8",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "format": "^0.2.2",
+    "heroku": "^8.6.0",
+    "isomorphic-fetch": "^3.0.0",
+    "jasmine-node": "^3.0.0",
+    "jasmine-reporters": "^2.5.2",
+    "magic": "^2.3.5-alpha.1",
+    "md5": "^2.3.0",
+    "mongodb": "^6.2.0",
+    "mongoose": "^8.0.0",
+    "multer": "^1.4.5-lts.1",
+    "passport": "^0.6.0",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth": "^2.0.0"
+  },
+  "devDependencies": {
+    "jasmine": "^5.1.0",
+    "nyc": "^15.1.0",
+    "prettier": "^3.1.0"
+  }
+}
