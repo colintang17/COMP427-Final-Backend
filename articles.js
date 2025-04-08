@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const url = 'mongodb+srv://mackjoyner:bEsilIT1WcgEosNg@cluster0.8xaq1b7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const url = 'mongodb+srv://ct60:3U7l5Xicu0KD7oRC@cluster0.up3jgsr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 mongoose.connect(url);
 const { Profile } = require("./auth");
 const uploadImage = require('./uploadCloudinary');
