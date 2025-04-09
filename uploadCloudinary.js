@@ -6,9 +6,9 @@ const multer = require('multer')
 const stream = require('stream')
 const cloudinary = require('cloudinary');
 cloudinary.config({ 
-	cloud_name: 'hneenuc', 
-	api_key: '2423747155476', 
-	api_secret: 'I-tTSWERwZZTua9cx9FoRUDP8'
+	cloud_name: 'hjag7mpql', 
+	api_key: '354527224221275', 
+	api_secret: 'aTniJHdQeDet37YOlbn1JAtoawc'
   });
 
 
