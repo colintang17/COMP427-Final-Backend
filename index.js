@@ -11,7 +11,7 @@ const profile = require('./profile.js');
 
 const app = express();
 const allowedOrigins = [
-     'https://owl-connect.surge.sh',
+     'https://owl-connect-ct60vyx2.surge.sh',
      'http://localhost:3000'
    ];
 const corsOptions = {origin: allowedOrigins, credentials: true};
