@@ -56,7 +56,10 @@ function login(req, res) {
     }
     // Create hash using md5, user salt and request password, check if hash matches user hash
     User.findOne({ username: username}).exec().then(user => {
-        if (!user || !user.username || !user.salt || !user.hash) {
+        if (!user) {
+            return res.sendStatus(400);
+        }
+        if (!user.username || !user.salt || !user.hash) {
             return res.sendStatus(401)
         } 
         //foundUser = user;
