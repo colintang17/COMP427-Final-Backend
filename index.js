@@ -14,16 +14,16 @@ const allowedOrigins = [
      'https://owl-connect-ct60vyx2.surge.sh',
      'http://localhost:3000'
    ];
-const corsOptions = {origin: allowedOrigins, credentials: true};
-app.use(cors(corsOptions));
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.set('trust proxy', 1);
-app.get('/', hello);
-app.set('userObjs', {});
-auth(app);
-articles(app);
-profile(app);
+   const corsOptions = {origin: allowedOrigins, credentials: true};
+   app.use(cors(corsOptions));
+   app.use(cookieParser());
+   app.use(bodyParser.json());
+   app.set('trust proxy', 1);
+   app.get('/', hello);
+   app.set('userObjs', {});
+   auth(app);
+   articles(app);
+   profile(app);
 
 
 // Get the port from the environment, i.e., Heroku sets it
