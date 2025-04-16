@@ -7,7 +7,7 @@ const cors = require('cors');
 const articles = require('./articles.js');
 const profile = require('./profile.js');
 
-const hello = (req, res) => res.send({ hello: 'world' });
+ const hello = (req, res) => res.send({ hello: 'world' });
 
 const app = express();
 const allowedOrigins = [
