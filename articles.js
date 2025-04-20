@@ -135,11 +135,14 @@ const addArticle = (req, res) => {
   post.text = req.body.text;
   post.comments = [];
   console.log(post);
+  const author = req.user.username;
+
+  Article.countDocuments({ author }).exec().then(userPostCount => {
+    if (userPostCount >= 5) {
+      return res.status(400).json({ error: 'Post limit exceeded. Max 50 posts per user.' });
+    }});
+
   Article.countDocuments({}).exec().then(count => {
-    if (count > 5) {
-      return res.status(400).json({ error: 'Too many posts' });
-    }
-    
     new Article({ pid: count, author: post.author, date: post.date, text: post.text, comments: post.comments, image: req.fileurl }).save().then(result => {
       Profile.findOne({ username: req.user.username }).exec().then(profile => {
         if (!profile) {
