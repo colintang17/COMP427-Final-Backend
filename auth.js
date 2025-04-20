@@ -47,6 +47,10 @@ function isLoggedIn(req, res, next) {
 }
 
 function login(req, res) {
+    if (typeof req.body.username !== "string" || typeof req.body.password !== "string") {
+        return res.sendStatus(400);
+    }
+    
     let username = sanitize(req.body.username);
     let password = req.body.password;
     var foundUser;
