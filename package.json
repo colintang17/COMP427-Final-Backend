@@ -25,6 +25,7 @@
     "jasmine-reporters": "^2.5.2",
     "magic": "^2.3.5-alpha.1",
     "md5": "^2.3.0",
+    "mongo-sanitize": "^1.1.0",
     "mongodb": "^6.2.0",
     "mongoose": "^8.0.0",
     "multer": "^1.4.5-lts.1",
