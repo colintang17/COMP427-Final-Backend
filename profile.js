@@ -1,9 +1,11 @@
 const { Profile } = require("./auth");
 const uploadImage = require('./uploadCloudinary');
 
+const sanitize = require('mongo-sanitize');
 
 const getHeadline = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+  
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -15,7 +17,7 @@ const getHeadline = (req, res) => {
 }
 
 const getUserHeadline = (req, res) => {
-    Profile.findOne({ username: req.params.user }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.params.user) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -27,7 +29,7 @@ const getUserHeadline = (req, res) => {
 }
 
 const updateHeadline = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -46,7 +48,7 @@ const updateHeadline = (req, res) => {
 }
 
 const getFollowing = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -58,7 +60,7 @@ const getFollowing = (req, res) => {
 }
 
 const getUserFollowing = (req, res) => {
-    Profile.findOne({ username: req.params.user }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.params.user) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -70,11 +72,11 @@ const getUserFollowing = (req, res) => {
 }
 
 const followUser = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
-        Profile.findOne({username: req.params.user}).exec().then(followProfile => {
+        Profile.findOne({username: sanitize(req.params.user)}).exec().then(followProfile => {
             if (!followProfile) {
                 return res.status(404).json({ error: 'Profile not found' });
             }
@@ -98,7 +100,7 @@ const followUser = (req, res) => {
 
 const unfollowUser = (req, res) => {
 
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
              return res.status(404).json({ error: 'Profile not found' });
         }
@@ -118,7 +120,7 @@ const unfollowUser = (req, res) => {
 }
 
 const getEmail = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -130,7 +132,7 @@ const getEmail = (req, res) => {
 }
 
 const getUserEmail = (req, res) => {
-    Profile.findOne({ username: req.params.user }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.params.user) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -142,7 +144,7 @@ const getUserEmail = (req, res) => {
 }
 
 const updateEmail = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -161,7 +163,7 @@ const updateEmail = (req, res) => {
 }
 
 const getZip = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -173,7 +175,7 @@ const getZip = (req, res) => {
 }
 
 const getUserZip= (req, res) => {
-    Profile.findOne({ username: req.params.user }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.params.user) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -185,7 +187,7 @@ const getUserZip= (req, res) => {
 }
 
 const updateZip = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -204,7 +206,7 @@ const updateZip = (req, res) => {
 }
 
 const getDOB = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -216,7 +218,7 @@ const getDOB = (req, res) => {
 }
 
 const getUserDOB= (req, res) => {
-    Profile.findOne({ username: req.params.user }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.params.user) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -228,7 +230,7 @@ const getUserDOB= (req, res) => {
 }
 
 const getPhone = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -240,7 +242,7 @@ const getPhone = (req, res) => {
 }
 
 const getUserPhone= (req, res) => {
-    Profile.findOne({ username: req.params.user }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.params.user) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -252,7 +254,7 @@ const getUserPhone= (req, res) => {
 }
 
 const updatePhone = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -271,7 +273,7 @@ const updatePhone = (req, res) => {
 }
 
 const getAvatar = (req, res) => {
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -283,7 +285,7 @@ const getAvatar = (req, res) => {
 }
 
 const getUserAvatar= (req, res) => {
-    Profile.findOne({ username: req.params.user }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.params.user) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
@@ -297,7 +299,7 @@ const getUserAvatar= (req, res) => {
 const updateAvatar= (req, res) => {
     //uploadImage(req.user.username);
     console.log("hiiii" + req.method);
-    Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    Profile.findOne({ username: sanitize(req.user.username) }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }

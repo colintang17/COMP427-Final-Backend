@@ -17,7 +17,7 @@ var profileSchema = new mongoose.Schema({
 });
 const Profile = mongoose.model('profile', profileSchema);
 
-
+const sanitize = require('mongo-sanitize');
 
 function isLoggedIn(req, res, next) {
     //console.log(req);
@@ -47,7 +47,7 @@ function isLoggedIn(req, res, next) {
 }
 
 function login(req, res) {
-    let username = req.body.username;
+    let username = sanitize(req.body.username);
     let password = req.body.password;
     var foundUser;
     // supply username and password
@@ -55,6 +55,7 @@ function login(req, res) {
         return res.sendStatus(400);
     }
     // Create hash using md5, user salt and request password, check if hash matches user hash
+    
     User.findOne({ username: username}).exec().then(user => {
         if (!user) {
             return res.sendStatus(400);
@@ -84,11 +85,11 @@ const hash = function(password, salt) {
 
 function register(req, res) {
     console.log(req.body);
-    let username = req.body.username;
-    let email = req.body.email;
-    let dob = req.body.dob;
-    let phone = req.body.phone;
-    let zip = req.body.zip;
+    let username = sanitize(req.body.username);
+    let email = sanitize(req.body.email);
+    let dob = sanitize(req.body.dob);
+    let phone = sanitize(req.body.phone);
+    let zip = sanitize(req.body.zip);
     let password = req.body.password;
      
 

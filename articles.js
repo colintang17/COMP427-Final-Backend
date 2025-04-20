@@ -10,9 +10,13 @@ var articleSchema = new mongoose.Schema({
 });
 const Article = mongoose.model('article', articleSchema);
 
+const sanitize = require('mongo-sanitize');
+
 const getArticles = (req, res) => {
-  Profile.findOne({ username: req.user.username }).exec().then(profile => {
-    const authorsToQuery = [req.user.username, ...profile.following];
+  const username = sanitize(req.user.username);
+  const id = sanitize(req.params.id);
+  Profile.findOne({ username: username }).exec().then(profile => {
+    const authorsToQuery = [username, ...profile.following];
     if (!req.params.id) {
       Article.find({ author: { $in: authorsToQuery } }).exec().then(articles => {
         if (!articles) {
@@ -24,7 +28,7 @@ const getArticles = (req, res) => {
     }
     else if (containsInteger(req.params.id)) {
       console.log("hello");
-      Article.findOne({ pid: parseInt(req.params.id), author: { $in: authorsToQuery } }).exec().then(article => {
+      Article.findOne({ pid: parseInt(id), author: { $in: authorsToQuery } }).exec().then(article => {
         console.log("deeper");
         if (!article) {
           return res.status(404).json({ error: 'Article not found' });
@@ -36,7 +40,7 @@ const getArticles = (req, res) => {
       console.log("hello");
       if (authorsToQuery.includes(req.params.id)) {
         console.log(req.params.id);
-        Article.find({ author: req.params.id }).exec().then(articles => {
+        Article.find({ author: id }).exec().then(articles => {
           console.log("deeper");
           if (!articles) {
             return res.status(404).json({ error: 'Article not found' });
@@ -101,9 +105,6 @@ const updateArticle = (req, res) => {
 
     if (commentId === -1) {
       // Add a new comment
-      if (article.comments.length > 3) {
-        return res.status(400).json({ error: 'Too many comments under one article' });
-      }
       const newComment = {
         pid: article.comments.length,
         author: loggedInUser,
@@ -132,10 +133,11 @@ const updateArticle = (req, res) => {
 const addArticle = (req, res) => {
   
   let post = {};
-  
-  post.author = req.user.username;
+  const username = sanitize(req.user.username);
+  const text = sanitize(req.body.text);
+  post.author = username;
   post.date = new Date().getUTCMilliseconds();
-  post.text = req.body.text;
+  post.text = text;
   post.comments = [];
   console.log(post);
   const author = req.user.username;
@@ -146,8 +148,8 @@ const addArticle = (req, res) => {
     }});
 
   Article.countDocuments({}).exec().then(count => {
-    new Article({ pid: count, author: post.author, date: post.date, text: post.text, comments: post.comments, image: req.fileurl }).save().then(result => {
-      Profile.findOne({ username: req.user.username }).exec().then(profile => {
+    new Article({ pid: count, author: post.author, date: post.date, text: text, comments: post.comments, image: req.fileurl }).save().then(result => {
+      Profile.findOne({ username: username }).exec().then(profile => {
         if (!profile) {
             return res.status(404).json({ error: 'Profile not found' });
         }
