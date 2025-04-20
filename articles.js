@@ -138,8 +138,8 @@ const addArticle = (req, res) => {
   const author = req.user.username;
 
   Article.countDocuments({ author }).exec().then(userPostCount => {
-    if (userPostCount >= 5) {
-      return res.status(400).json({ error: 'Post limit exceeded. Max 50 posts per user.' });
+    if (userPostCount >= 100) {
+      return res.status(400).json({ error: 'Post limit exceeded. Max 100 posts per user.' });
     }});
 
   Article.countDocuments({}).exec().then(count => {
