@@ -50,7 +50,7 @@ function login(req, res) {
     if (typeof req.body.username !== "string" || typeof req.body.password !== "string") {
         return res.sendStatus(400);
     }
-    
+
     let username = sanitize(req.body.username);
     let password = req.body.password;
     var foundUser;
@@ -89,12 +89,24 @@ const hash = function(password, salt) {
 
 function register(req, res) {
     console.log(req.body);
+
+    if (
+        typeof req.body.username !== "string" ||
+        typeof req.body.email !== "string" ||
+        typeof req.body.dob !== "string" ||
+        typeof req.body.phone !== "string" ||
+        typeof req.body.zip !== "string" ||
+        typeof req.body.password !== "string"
+    ) {
+        return res.sendStatus(400);
+    }
+
     let username = sanitize(req.body.username);
     let email = sanitize(req.body.email);
     let dob = sanitize(req.body.dob);
     let phone = sanitize(req.body.phone);
     let zip = sanitize(req.body.zip);
-    let password = req.body.password;
+    let password = sanitize(req.body.password);
      
 
     // supply username and password
