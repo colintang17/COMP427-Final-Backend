@@ -136,6 +136,8 @@ const addArticle = (req, res) => {
   post.comments = [];
   console.log(post);
   Article.countDocuments({}).exec().then(count => {
+    console.log(count);
+    console.log("COUNTING HERE");
     new Article({ pid: count, author: post.author, date: post.date, text: post.text, comments: post.comments, image: req.fileurl }).save().then(result => {
       Profile.findOne({ username: req.user.username }).exec().then(profile => {
         if (!profile) {
