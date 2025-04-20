@@ -101,6 +101,9 @@ const updateArticle = (req, res) => {
 
     if (commentId === -1) {
       // Add a new comment
+      if (article.comments.length > 3) {
+        return res.status(400).json({ error: 'Too many comments under one article' });
+      }
       const newComment = {
         pid: article.comments.length,
         author: loggedInUser,
