@@ -72,6 +72,9 @@ function containsInteger(str) {
 const updateArticle = (req, res) => {
   const { text, commentId } = req.body;
   const loggedInUser = req.user.username;
+  if (!containsInteger(req.params.id)) {
+    return res.status(404).json({ error: 'Invalid article id: Must be an integer.' });
+  }
   const articleId = parseInt(req.params.id);
 
   Article.findOne({ pid: articleId }).exec().then(article => {
@@ -104,6 +107,10 @@ const updateArticle = (req, res) => {
     }
 
     if (commentId === -1) {
+      // Check if number of comments is small enough
+      if (article.comments.length > 30) {
+        return res.status(403).json({ error: 'Forbidden: Too many comments under one post' });
+      }
       // Add a new comment
       const newComment = {
         pid: article.comments.length,
