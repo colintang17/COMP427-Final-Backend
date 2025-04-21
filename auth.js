@@ -100,7 +100,6 @@ function register(req, res) {
     if (
         typeof req.body.username !== "string" ||
         typeof req.body.email !== "string" ||
-        typeof req.body.dob !== "string" ||
         typeof req.body.phone !== "string" ||
         typeof req.body.zip !== "string" ||
         typeof req.body.password !== "string"
