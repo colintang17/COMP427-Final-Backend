@@ -52,6 +52,7 @@ function login(req, res) {
     }
 
     let username = sanitize(req.body.username);
+    console.log("Username: " + username);
     let password = req.body.password;
     var foundUser;
     // supply username and password
