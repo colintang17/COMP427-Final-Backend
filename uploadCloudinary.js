@@ -13,7 +13,6 @@ cloudinary.config({
 
 
 const doUpload = (publicId, req, res, next) => {
-	sadjiuhjasd const = asd
 	const imageUrl = req.fileurl;
 	cloudinary.uploader.explicit(imageUrl, {type: 'fetch'}, function(error, result) {
 		if (error) {
