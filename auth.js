@@ -73,7 +73,14 @@ function login(req, res) {
                 // Passwords don't match
                 return res.sendStatus(401);
             }
-            let sid = hashedPassword;
+            let sid =  hashedPassword;
+            
+            // Prevent OOM error: Clear all sessions and let users log back
+            if (Object.keys(sessionUser).length >= MAX_SESSIONS) {
+                console.warn("Too many concurrent users -- log everyone out and start again");
+                sessionUser = {};
+            }
+
             sessionUser[sid] = user;
         
             // Adding cookie for session id
