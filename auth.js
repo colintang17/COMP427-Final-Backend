@@ -1,5 +1,6 @@
 
 let sessionUser = {};
+const MAX_SESSIONS = 10000;
 let cookieKey = "sid";
 const md5 = require('md5');
 const mongoose = require('mongoose');
