@@ -1,6 +1,6 @@
 
 let sessionUser = {};
-const MAX_SESSIONS = 2;
+const MAX_SESSIONS = 10000;
 let cookieKey = "sid";
 const md5 = require('md5');
 const mongoose = require('mongoose');
@@ -76,10 +76,10 @@ function login(req, res) {
                 return res.sendStatus(401);
             }
             let sid =  hashedPassword;
-            
+            console.log("NUMBER OF LOGGED IN USERS: " + Object.keys(sessionUser).length);
             // Prevent OOM error: Clear all sessions and let users log back
             if (Object.keys(sessionUser).length >= MAX_SESSIONS) {
-                console.warn("Too many concurrent users -- log everyone out and start again");
+                console.log("Too many concurrent users -- log everyone out and start again");
                 sessionUser = {};
             }
 
