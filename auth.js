@@ -80,13 +80,10 @@ function login(req, res) {
             // Prevent OOM error: Clear all sessions and let users log back
             if (Object.keys(sessionUser).length >= MAX_SESSIONS) {
                 console.warn("Too many concurrent users -- log everyone out and start again");
-<<<<<<< HEAD
             console.log("NUMBER OF LOGGED IN USERS: " + Object.keys(sessionUser).length);
             // Prevent OOM error: Clear all sessions and let users log back
             if (Object.keys(sessionUser).length >= MAX_SESSIONS) {
                 console.log("Too many concurrent users -- log everyone out and start again");
-=======
->>>>>>> c529491 (Merging)
                 sessionUser = {};
             }
 
@@ -96,7 +93,7 @@ function login(req, res) {
             res.cookie(cookieKey, sid, { maxAge: 3600 * 1000, httpOnly: true, sameSite: 'None', secure: true});
             let msg = {username: user.username, result: 'success'};
             res.send(msg);
-    });
+    }});
 }
 
 const hash = function(password, salt) {
