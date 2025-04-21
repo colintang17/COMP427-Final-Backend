@@ -6,10 +6,18 @@ const auth = require('./auth.js');
 const cors = require('cors');
 const articles = require('./articles.js');
 const profile = require('./profile.js');
+const rateLimit = require('express-rate-limit');
 
  const hello = (req, res) => res.send({ hello: 'world' });
 
 const app = express();
+
+const limiter = rateLimit({
+     windowMs: 10 * 60 * 1000,
+     max: 100                  
+   });
+app.use(limiter);
+
 const allowedOrigins = [
      'https://owl-connect-ct60vyx2.surge.sh',
      'http://localhost:3000'

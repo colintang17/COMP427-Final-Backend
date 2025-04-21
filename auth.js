@@ -1,5 +1,6 @@
 
 let sessionUser = {};
+const MAX_SESSIONS = 10000;
 let cookieKey = "sid";
 const md5 = require('md5');
 const mongoose = require('mongoose');
@@ -50,8 +51,9 @@ function login(req, res) {
     if (typeof req.body.username !== "string" || typeof req.body.password !== "string") {
         return res.sendStatus(400);
     }
-    
+
     let username = sanitize(req.body.username);
+    console.log("Username: " + username);
     let password = req.body.password;
     var foundUser;
     // supply username and password
@@ -73,7 +75,14 @@ function login(req, res) {
                 // Passwords don't match
                 return res.sendStatus(401);
             }
-            let sid = hashedPassword;
+            let sid =  hashedPassword;
+            
+            // Prevent OOM error: Clear all sessions and let users log back
+            if (Object.keys(sessionUser).length >= MAX_SESSIONS) {
+                console.warn("Too many concurrent users -- log everyone out and start again");
+                sessionUser = {};
+            }
+
             sessionUser[sid] = user;
         
             // Adding cookie for session id
@@ -89,12 +98,23 @@ const hash = function(password, salt) {
 
 function register(req, res) {
     console.log(req.body);
+
+    if (
+        typeof req.body.username !== "string" ||
+        typeof req.body.email !== "string" ||
+        typeof req.body.phone !== "string" ||
+        typeof req.body.zip !== "string" ||
+        typeof req.body.password !== "string"
+    ) {
+        return res.sendStatus(400);
+    }
+
     let username = sanitize(req.body.username);
     let email = sanitize(req.body.email);
     let dob = sanitize(req.body.dob);
     let phone = sanitize(req.body.phone);
     let zip = sanitize(req.body.zip);
-    let password = req.body.password;
+    let password = sanitize(req.body.password);
      
 
     // supply username and password
