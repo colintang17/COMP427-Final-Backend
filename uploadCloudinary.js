@@ -23,16 +23,6 @@ const doUpload = (publicId, req, res, next) => {
 		
 	  });
 
-	const imageUrl = req.fileurl;
-	cloudinary.uploader.explicit(imageUrl, {type: 'fetch'}, function(error, result) {
-		if (error) {
-			return res.status(500).json({ error: 'Error fetching image metadata from Cloudinary.' }); 
-		} else if (result.bytes > 5 * 1024 * 1024) {
-			return res.status(400).json({ error: 'Image too big. Max size of 5 MB.' });
-		}
-		
-	  });
-
 	const uploadStream = cloudinary.uploader.upload_stream(result => {    	
          // capture the url and public_id and add to the request
          req.fileurl = result.url
